@@ -1,0 +1,302 @@
+
+windowManager:
+    loginWindow:
+    signupWindow:
+    logDataWindow:
+    mainProfileWindow:
+    workoutWindow:
+    profileWindow:
+    socialWindow:
+    settingsWindow:
+    statsWindow:
+
+
+<loginWindow>:
+    email : email
+    pwd : pwd
+    background_color : 243, 168, 24, 1
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: .95, .63, .09, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        size: root.width, root.height
+        Label:
+            text : "GoTrain"
+            size_hint : 0.75, 0.325
+            pos_hint : {"x":0.175, "top":1.0}
+        Label:
+            text : "Username: "
+            size_hint : 0.2, 0.1
+            pos_hint : {"x":0.25, "top":0.825}
+        TextInput:
+            id : email
+            multiline :False
+            size_hint : 0.3, 0.05
+            pos_hint : {"x" : 0.45, "top" : 0.8}
+        Label:
+            text : "Password: "
+            size_hint : 0.2, 0.1
+            pos_hint : {"x" : 0.25, "top" : 0.725}
+        TextInput:
+            id : pwd
+            multiline :False
+            size_hint : 0.3, 0.05
+            pos_hint : {"x" : 0.45, "top" : 0.7}
+        Button:
+            text : "LOGIN"
+            size_hint : 0.3, 0.1
+            pos_hint : {"x" : 0.39, "top" : 0.2}
+            on_release:
+                root.validate()
+                root.manager.transition.direction = "up"
+        Button:
+            text : "Create an account"
+            size_hint : 0.4, 0.1
+            pos_hint : {"x" : 0.33, "top" : 0.4}
+            on_release:
+                app.root.current = 'signup'
+                root.manager.transition.direction = "left"
+
+
+<signupWindow>:
+    name1 : name1
+    name2 : name2
+    email : email
+    pwd : pwd
+    FloatLayout:
+        Label:
+            text : "FIRST NAME: "
+            size_hint : 0.2, 0.1
+            pos_hint : {"x":0.25, "top":0.98}
+        TextInput:
+            id : name1
+            multiline : False
+            size_hint : 0.3, 0.1
+            pos_hint : {"x" : 0.45, "top" : 0.98}
+        Label:
+            text : "LAST NAME: "
+            size_hint : 0.2, 0.1
+            pos_hint : {"x":0.25, "top":0.9}
+        TextInput:
+            id : name2
+            multiline : False
+            size_hint : 0.3, 0.1
+            pos_hint : {"x" : 0.45, "top" : 0.9}
+        Label:
+            text : "EMAIL: "
+            size_hint : 0.2, 0.1
+            pos_hint : {"x" : 0.25, "top" : 0.7}
+        TextInput:
+            id : email
+            multiline : False
+            size_hint : 0.3, 0.1
+            pos_hint : {"x" : 0.45, "top" : 0.7}
+        Label:
+            text : "PASSWORD: "
+            size_hint : 0.2, 0.1
+            pos_hint : {"x" : 0.25, "top" : 0.5}
+        TextInput:
+            id : pwd
+            multiline : False
+            size_hint : 0.3, 0.1
+            pos_hint : {"x" : 0.45, "top" : 0.5}
+        Button:
+            text : "SUBMIT"
+            size_hint : 0.3, 0.1
+            pos_hint : {"x" : 0.39, "top" : 0.28}
+            on_press :
+                root.signupbtn()
+                root.manager.transition.direction = "right"
+
+<logDataWindow>:
+    info : info
+    FloatLayout:
+        Label:
+            id : info
+            size_hint : 0.8, 0.2
+            pos_hint : {"x" : 0.15, "top" : 0.8}
+            text : "SUCCESSFULLY LOGGED IN"
+        Button:
+            text : "Login"
+            size_hint : 0.4, 0.1
+            pos_hint : {"x" : 0.33, "top" : 0.55}
+            on_release:
+                app.root.current = 'login'
+                root.manager.transition.direction = "down"
+        Button:
+            text : "Create new account"
+            size_hint : 0.4, 0.1
+            pos_hint : {"x" : 0.33, "top" : 0.4}
+            on_release:
+                app.root.current = 'signup'
+                root.manager.transition.direction = "down"
+
+
+<P>:
+    Label:
+        text : "Please enter valid information"
+        size_hint : 0.2, 0.1
+        pos_hint : {"x" : 0.3, "top" : 0.8}
+
+<mainProfileWindow>:
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: .95, .63, .09, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        size: root.width, root.height
+        Button:
+            text : "Welcome!"
+            size_hint : 0.4, 0.1
+            pos_hint : {"x" : 0.33, "top" : 1}
+        Button:
+            text : "Current Workout"
+            size_hint : 0.2, 0.1
+            pos_hint : {"x":0.0, "top":0.825}
+            on_release:
+                app.root.current = 'workout'
+                root.manager.transition.direction = "down"
+        Button:
+            text : "Personal Bests!"
+            size_hint : 0.2, 0.1
+            pos_hint : {"x" : 0.0, "top" : 0.725}
+        Button:
+            text : "Friends"
+            size_hint : 0.2, 0.1
+            pos_hint : {"x" : 0.0, "top" : 0.625}
+            on_release:
+                app.root.current = 'social'
+                root.manager.transition.direction = "down"
+        Button:
+            text : "Profile"
+            size_hint : 0.2, 0.1
+            pos_hint : {"x" : 0.0, "top" : 0.525}
+            on_release:
+                app.root.current = 'profile'
+                root.manager.transition.direction = "down"
+        Button:
+            text : "Stats"
+            size_hint : 0.2, 0.1
+            pos_hint : {"x" : 0.0, "top" : 0.425}
+            on_release:
+                app.root.current = 'stats'
+                root.manager.transition.direction = "down"
+        Button:
+            text : "Settings"
+            size_hint : 0.2, 0.1
+            pos_hint : {"x" : 0.0, "top" : 0.325}
+            on_release:
+                app.root.current = 'settings'
+                root.manager.transition.direction = "down"
+        Button:
+            text : "Log Out"
+            size_hint : 0.2, 0.1
+            pos_hint : {"x" : 0.0, "top" : 0.225}
+            on_release:
+                app.root.current = 'login'
+                root.manager.transition.direction = "down"
+
+<workoutWindow>:
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: .95, .63, .09, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        size: root.width, root.height
+        Button:
+            text : "Create Workout"
+            size_hint : 0.4, 0.1
+            pos_hint : {"x" : 0.55, "top" : 0.55}
+            on_release:
+                app.root.current = 'login'
+                root.manager.transition.direction = "down"
+        Button:
+            text : "Lets Work Out"
+            size_hint : 0.4, 0.1
+            pos_hint : {"x" : 0.25, "top" : 0.55}
+            on_release:
+                app.root.current = 'login'
+                root.manager.transition.direction = "down"
+        Button:
+            text : "GoTrain"
+            size_hint : 0.4, 0.1
+            pos_hint : {"x" : 0.0, "top" : 1.0}
+            on_release:
+                app.root.current = 'mainprofile'
+                root.manager.transition.direction = "down"
+
+<profileWindow>:
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: .95, .63, .09, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        size: root.width, root.height
+        Button:
+            text : "GoTrain"
+            size_hint : 0.4, 0.1
+            pos_hint : {"x" : 0.0, "top" : 1}
+            on_release:
+                app.root.current = 'mainprofile'
+                root.manager.transition.direction = "down"
+
+<socialWindow>:
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: .95, .63, .09, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        size: root.width, root.height
+        Button:
+            text : "GoTrain"
+            size_hint : 0.4, 0.1
+            pos_hint : {"x" : 0.0, "top" : 1}
+            on_release:
+                app.root.current = 'mainprofile'
+                root.manager.transition.direction = "down"
+
+
+<settingsWindow>:
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: .95, .63, .09, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        size: root.width, root.height
+        Button:
+            text : "GoTrain"
+            size_hint : 0.4, 0.1
+            pos_hint : {"x" : 0.0, "top" : 1}
+            on_release:
+                app.root.current = 'mainprofile'
+                root.manager.transition.direction = "down"
+
+<statsWindow>:
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: .95, .63, .09, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        size: root.width, root.height
+        Button:
+            text : "GoTrain"
+            size_hint : 0.4, 0.1
+            pos_hint : {"x" : 0.0, "top" : 1}
+            on_release:
+                app.root.current = 'mainprofile'
+                root.manager.transition.direction = "down"
