@@ -5,14 +5,13 @@ windowManager:
     logDataWindow:
     mainProfileWindow:
     workoutWindow:
-    profileWindow:
-    socialWindow:
-    settingsWindow:
     statsWindow:
+    newWorkout:
+    planWindow:
 
 
 <loginWindow>:
-    email : email
+    user : user
     pwd : pwd
     background_color : 243, 168, 24, 1
     FloatLayout:
@@ -32,7 +31,7 @@ windowManager:
             size_hint : 0.2, 0.1
             pos_hint : {"x":0.25, "top":0.825}
         TextInput:
-            id : email
+            id : user
             multiline :False
             size_hint : 0.3, 0.05
             pos_hint : {"x" : 0.45, "top" : 0.8}
@@ -64,7 +63,7 @@ windowManager:
 <signupWindow>:
     name1 : name1
     name2 : name2
-    email : email
+    user : user
     pwd : pwd
     FloatLayout:
         Label:
@@ -86,11 +85,11 @@ windowManager:
             size_hint : 0.3, 0.1
             pos_hint : {"x" : 0.45, "top" : 0.9}
         Label:
-            text : "EMAIL: "
+            text : "USER: "
             size_hint : 0.2, 0.1
             pos_hint : {"x" : 0.25, "top" : 0.7}
         TextInput:
-            id : email
+            id : user
             multiline : False
             size_hint : 0.3, 0.1
             pos_hint : {"x" : 0.45, "top" : 0.7}
@@ -157,46 +156,21 @@ windowManager:
         Button:
             text : "Current Workout"
             size_hint : 0.2, 0.1
-            pos_hint : {"x":0.0, "top":0.825}
+            pos_hint : {"x":0.05, "top":0.625}
             on_release:
                 app.root.current = 'workout'
                 root.manager.transition.direction = "down"
         Button:
-            text : "Personal Bests!"
-            size_hint : 0.2, 0.1
-            pos_hint : {"x" : 0.0, "top" : 0.725}
-        Button:
-            text : "Friends"
-            size_hint : 0.2, 0.1
-            pos_hint : {"x" : 0.0, "top" : 0.625}
-            on_release:
-                app.root.current = 'social'
-                root.manager.transition.direction = "down"
-        Button:
-            text : "Profile"
-            size_hint : 0.2, 0.1
-            pos_hint : {"x" : 0.0, "top" : 0.525}
-            on_release:
-                app.root.current = 'profile'
-                root.manager.transition.direction = "down"
-        Button:
             text : "Stats"
             size_hint : 0.2, 0.1
-            pos_hint : {"x" : 0.0, "top" : 0.425}
+            pos_hint : {"x" : 0.4, "top" : 0.625}
             on_release:
-                app.root.current = 'stats'
-                root.manager.transition.direction = "down"
-        Button:
-            text : "Settings"
-            size_hint : 0.2, 0.1
-            pos_hint : {"x" : 0.0, "top" : 0.325}
-            on_release:
-                app.root.current = 'settings'
+                root.stat()
                 root.manager.transition.direction = "down"
         Button:
             text : "Log Out"
             size_hint : 0.2, 0.1
-            pos_hint : {"x" : 0.0, "top" : 0.225}
+            pos_hint : {"x" : 0.725, "top" : 0.625}
             on_release:
                 app.root.current = 'login'
                 root.manager.transition.direction = "down"
@@ -212,17 +186,17 @@ windowManager:
         size: root.width, root.height
         Button:
             text : "Create Workout"
-            size_hint : 0.4, 0.1
-            pos_hint : {"x" : 0.55, "top" : 0.55}
+            size_hint : 0.3, 0.1
+            pos_hint : {"x" : 0.175, "top" : 0.5}
             on_release:
-                app.root.current = 'login'
+                app.root.current = 'newwo'
                 root.manager.transition.direction = "down"
         Button:
             text : "Lets Work Out"
-            size_hint : 0.4, 0.1
-            pos_hint : {"x" : 0.25, "top" : 0.55}
+            size_hint : 0.3, 0.1
+            pos_hint : {"x" : 0.55, "top" : 0.5}
             on_release:
-                app.root.current = 'login'
+                root.planday()
                 root.manager.transition.direction = "down"
         Button:
             text : "GoTrain"
@@ -232,59 +206,9 @@ windowManager:
                 app.root.current = 'mainprofile'
                 root.manager.transition.direction = "down"
 
-<profileWindow>:
-    FloatLayout:
-        canvas.before:
-            Color:
-                rgba: .95, .63, .09, 1
-            Rectangle:
-                pos: self.pos
-                size: self.size
-        size: root.width, root.height
-        Button:
-            text : "GoTrain"
-            size_hint : 0.4, 0.1
-            pos_hint : {"x" : 0.0, "top" : 1}
-            on_release:
-                app.root.current = 'mainprofile'
-                root.manager.transition.direction = "down"
-
-<socialWindow>:
-    FloatLayout:
-        canvas.before:
-            Color:
-                rgba: .95, .63, .09, 1
-            Rectangle:
-                pos: self.pos
-                size: self.size
-        size: root.width, root.height
-        Button:
-            text : "GoTrain"
-            size_hint : 0.4, 0.1
-            pos_hint : {"x" : 0.0, "top" : 1}
-            on_release:
-                app.root.current = 'mainprofile'
-                root.manager.transition.direction = "down"
-
-
-<settingsWindow>:
-    FloatLayout:
-        canvas.before:
-            Color:
-                rgba: .95, .63, .09, 1
-            Rectangle:
-                pos: self.pos
-                size: self.size
-        size: root.width, root.height
-        Button:
-            text : "GoTrain"
-            size_hint : 0.4, 0.1
-            pos_hint : {"x" : 0.0, "top" : 1}
-            on_release:
-                app.root.current = 'mainprofile'
-                root.manager.transition.direction = "down"
 
 <statsWindow>:
+    on_pre_enter: root.stats()
     FloatLayout:
         canvas.before:
             Color:
@@ -299,4 +223,82 @@ windowManager:
             pos_hint : {"x" : 0.0, "top" : 1}
             on_release:
                 app.root.current = 'mainprofile'
+                root.manager.transition.direction = "down"
+
+
+
+<newWorkout>:
+    length : length
+    freq : freq
+    sport : sport
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: .95, .63, .09, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Label:
+            text : "Please enter weeks for training: "
+            size_hint : 0.2, 0.1
+            pos_hint : {"x":0.25, "top":0.98}
+        TextInput:
+            id : length
+            multiline : False
+            size_hint : 0.3, 0.1
+            pos_hint : {"x" : 0.45, "top" : 0.98}
+        Label:
+            text : "Please choose up to 5 days a week: "
+            size_hint : 0.2, 0.1
+            pos_hint : {"x":0.25, "top":0.9}
+        TextInput:
+            id : freq
+            multiline : False
+            size_hint : 0.3, 0.1
+            pos_hint : {"x" : 0.45, "top" : 0.9}
+        Label:
+            text : "Please choose from the sports below: "
+            size_hint : 0.2, 0.1
+            pos_hint : {"x" : 0.25, "top" : 0.7}
+        TextInput:
+            id : sport
+            multiline : False
+            size_hint : 0.3, 0.1
+            pos_hint : {"x" : 0.45, "top" : 0.7}
+        Button:
+            text : "Create Workout"
+            size_hint : 0.4, 0.1
+            pos_hint : {"x" : 0.5, "top" : 0.5}
+            on_release:
+                root.buildwo()
+                root.manager.transition.direction = "down"
+
+<planWindow>:
+
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: .95, .63, .09, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Button:
+            text : "Start"
+            size_hint : 0.25, 0.1
+            pos_hint : {"x" : 0.175, "top" : 0.25}
+            on_release:
+                root.plan()
+        Button:
+            text : "Done"
+            size_hint : 0.25, 0.1
+            pos_hint : {"x" : 0.55, "top" : 0.25}
+            on_release:
+                root.comp()
+        Button:
+            text : "Back"
+            size_hint : 0.4, 0.1
+            pos_hint : {"x" : 0.0, "top" : 1}
+            on_release:
+                app.root.current = 'workout'
                 root.manager.transition.direction = "down"
