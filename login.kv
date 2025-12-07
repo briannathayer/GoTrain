@@ -24,8 +24,8 @@ windowManager:
         size: root.width, root.height
         Label:
             text : "GoTrain"
-            size_hint : 0.75, 0.325
-            pos_hint : {"x":0.175, "top":1.0}
+            size_hint : 0.3, 0.15
+            pos_hint : {"x":0.375, "top":1.0}
         Label:
             text : "Username: "
             size_hint : 0.2, 0.1
@@ -34,7 +34,7 @@ windowManager:
             id : user
             multiline :False
             size_hint : 0.3, 0.05
-            pos_hint : {"x" : 0.45, "top" : 0.8}
+            pos_hint : {"x" : 0.425, "top" : 0.8}
         Label:
             text : "Password: "
             size_hint : 0.2, 0.1
@@ -43,18 +43,18 @@ windowManager:
             id : pwd
             multiline :False
             size_hint : 0.3, 0.05
-            pos_hint : {"x" : 0.45, "top" : 0.7}
+            pos_hint : {"x" : 0.425, "top" : 0.7}
         Button:
-            text : "LOGIN"
+            text : "Login"
             size_hint : 0.3, 0.1
-            pos_hint : {"x" : 0.39, "top" : 0.2}
+            pos_hint : {"x" : 0.38, "top" : 0.5}
             on_release:
                 root.validate()
                 root.manager.transition.direction = "up"
         Button:
             text : "Create an account"
             size_hint : 0.4, 0.1
-            pos_hint : {"x" : 0.33, "top" : 0.4}
+            pos_hint : {"x" : 0.33, "top" : 0.35}
             on_release:
                 app.root.current = 'signup'
                 root.manager.transition.direction = "left"
@@ -65,42 +65,50 @@ windowManager:
     name2 : name2
     user : user
     pwd : pwd
+    background_color : 243, 168, 24, 1
     FloatLayout:
+        canvas.before:
+            Color:
+                rgba: .95, .63, .09, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        size: root.width, root.height
         Label:
-            text : "FIRST NAME: "
+            text : "First Name: "
             size_hint : 0.2, 0.1
-            pos_hint : {"x":0.25, "top":0.98}
+            pos_hint : {"x":0.25, "top":0.825}
         TextInput:
             id : name1
             multiline : False
-            size_hint : 0.3, 0.1
-            pos_hint : {"x" : 0.45, "top" : 0.98}
+            size_hint : 0.3, 0.05
+            pos_hint : {"x" : 0.45, "top" : 0.8}
         Label:
-            text : "LAST NAME: "
+            text : "Last Name: "
             size_hint : 0.2, 0.1
-            pos_hint : {"x":0.25, "top":0.9}
+            pos_hint : {"x":0.25, "top":0.725}
         TextInput:
             id : name2
             multiline : False
-            size_hint : 0.3, 0.1
-            pos_hint : {"x" : 0.45, "top" : 0.9}
+            size_hint : 0.3, 0.05
+            pos_hint : {"x" : 0.45, "top" : 0.7}
         Label:
-            text : "USER: "
+            text : "Username: "
             size_hint : 0.2, 0.1
-            pos_hint : {"x" : 0.25, "top" : 0.7}
+            pos_hint : {"x" : 0.25, "top" : 0.625}
         TextInput:
             id : user
             multiline : False
-            size_hint : 0.3, 0.1
-            pos_hint : {"x" : 0.45, "top" : 0.7}
+            size_hint : 0.3, 0.05
+            pos_hint : {"x" : 0.45, "top" : 0.6}
         Label:
-            text : "PASSWORD: "
+            text : "Password: "
             size_hint : 0.2, 0.1
-            pos_hint : {"x" : 0.25, "top" : 0.5}
+            pos_hint : {"x" : 0.25, "top" : 0.525}
         TextInput:
             id : pwd
             multiline : False
-            size_hint : 0.3, 0.1
+            size_hint : 0.3, 0.05
             pos_hint : {"x" : 0.45, "top" : 0.5}
         Button:
             text : "SUBMIT"
@@ -149,7 +157,7 @@ windowManager:
                 pos: self.pos
                 size: self.size
         size: root.width, root.height
-        Button:
+        Label:
             text : "Welcome!"
             size_hint : 0.4, 0.1
             pos_hint : {"x" : 0.33, "top" : 1}
@@ -239,36 +247,40 @@ windowManager:
                 pos: self.pos
                 size: self.size
         Label:
+            text : "1. Snowboarding  2. Rock Climbing  3. Dancing"
+            size_hint : 0.75, 0.325
+            pos_hint : {"x":0.13, "top":0.7}
+        Label:
             text : "Please enter weeks for training: "
             size_hint : 0.2, 0.1
-            pos_hint : {"x":0.25, "top":0.98}
+            pos_hint : {"x":0.2, "top":0.94}
         TextInput:
             id : length
             multiline : False
             size_hint : 0.3, 0.1
-            pos_hint : {"x" : 0.45, "top" : 0.98}
+            pos_hint : {"x" : 0.5, "top" : 0.94}
         Label:
             text : "Please choose up to 5 days a week: "
             size_hint : 0.2, 0.1
-            pos_hint : {"x":0.25, "top":0.9}
+            pos_hint : {"x":0.2, "top":0.82}
         TextInput:
             id : freq
             multiline : False
             size_hint : 0.3, 0.1
-            pos_hint : {"x" : 0.45, "top" : 0.9}
+            pos_hint : {"x" : 0.5, "top" : 0.82}
         Label:
             text : "Please choose from the sports below: "
             size_hint : 0.2, 0.1
-            pos_hint : {"x" : 0.25, "top" : 0.7}
+            pos_hint : {"x" : 0.2, "top" : 0.7}
         TextInput:
             id : sport
             multiline : False
             size_hint : 0.3, 0.1
-            pos_hint : {"x" : 0.45, "top" : 0.7}
+            pos_hint : {"x" : 0.5, "top" : 0.7}
         Button:
             text : "Create Workout"
             size_hint : 0.4, 0.1
-            pos_hint : {"x" : 0.5, "top" : 0.5}
+            pos_hint : {"x" : 0.3, "top" : 0.5}
             on_release:
                 root.buildwo()
                 root.manager.transition.direction = "down"
