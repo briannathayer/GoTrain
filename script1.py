@@ -91,7 +91,7 @@ class mainProfileWindow(Screen):
         #Filters the list to the specific userid
         df1 = df[df['User_ID'] == userid]
         #Filters to get the completed workouts
-        df2 = df1[df1['Completed'] == False]
+        df2 = df1[df1['Completed'] == True]
         #Makes sure that the wokrouts are sorted by workout ID
         df3 = df2.sort_values('Workout_ID')
         df4 = df3.reset_index()
@@ -208,87 +208,106 @@ class newWorkout(Screen):
 
         df = pd.read_sql(query2, cnxn)
 
+        num1 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+        num2 = [1,2,3,4,5]
+        num3 = [1,2,3]
+
         weeks1 = self.length.text
         days1 = self.freq.text
         sports1 = self.sport.text
 
 
-        weeks = int(weeks1)
-        days = int(days1)
-        sports = int(sports1)
-        day = list()
+        if weeks1 not in num1:
+            print("failed at weeks")
+            sm.current = 'mainprofile'
+            popFun()
+        elif days1 not in num2:
+            print("failed at days")
+            sm.current = 'mainprofile'
+            popFun()
+        elif sports1 not in num3:
+            print("failed at sport")
+            sm.current = 'mainprofile'
+            popFun()
+        else:
+            weeks = int(weeks1)
+            days = int(days1)
+            sports = int(sports1)
+            day = list()
 
-        match sports:
-            case 1:  # snowboarding
-                upper = ['core', 'biceps', 'triceps', 'back', 'shoulder']
-                lower = ['calves', 'hamstrings', 'glutes', 'quads']
-            case 2:  # rock climbing
-                upper = ['forearms', 'biceps', 'back', 'core', 'triceps']
-                lower = ['calves', 'hamstrings', 'glutes', 'quads']
-            case 3:  # dance
-                upper = ['chest', 'back', 'shoulders', 'biceps', 'triceps', 'core']
-                lower = ['ankles', 'feet', 'calves', 'hamstrings', 'glutes', 'quads', 'hip flexors']
+            match sports:
+                case 1:  # snowboarding
+                    upper = ['core', 'biceps', 'triceps', 'back', 'shoulder']
+                    lower = ['calves', 'hamstrings', 'glutes', 'quads']
+                case 2:  # rock climbing
+                    upper = ['forearms', 'biceps', 'back', 'core', 'triceps']
+                    lower = ['calves', 'hamstrings', 'glutes', 'quads']
+                case 3:  # dance
+                    upper = ['chest', 'back', 'shoulders', 'biceps', 'triceps', 'core']
+                    lower = ['ankles', 'feet', 'calves', 'hamstrings', 'glutes', 'quads', 'hip flexors']
 
-        match days:
-            case 1:
-                result = [[upper, upper, upper, upper, lower, lower, lower, lower]]
-            case 2:
-                result = [[upper, upper, upper, upper, upper, upper, upper, upper],
+            match days:
+                case 1:
+                    result = [[upper, upper, upper, upper, lower, lower, lower, lower]]
+                case 2:
+                    result = [[upper, upper, upper, upper, upper, upper, upper, upper],
                             [lower, lower, lower, lower, lower, lower, lower, lower]]
-            case 3:
-                result = [[upper, upper, upper, upper, upper, upper, upper, upper],
+                case 3:
+                    result = [[upper, upper, upper, upper, upper, upper, upper, upper],
                             [lower, lower, lower, lower, lower, lower, lower, lower],
                             [upper, upper, upper, upper, lower, lower, lower, lower]]
-            case 4:
-                result = [[upper, upper, upper, upper, upper, upper, upper, upper],
+                case 4:
+                    result = [[upper, upper, upper, upper, upper, upper, upper, upper],
                             [lower, lower, lower, lower, lower, lower, lower, lower],
                             [upper, upper, upper, upper, upper, upper, upper, upper],
                             [lower, lower, lower, lower, lower, lower, lower, lower]]
-            case 5:
-                result = [[upper, upper, upper, upper, upper, upper, upper, upper],
+                case 5:
+                    result = [[upper, upper, upper, upper, upper, upper, upper, upper],
                             [lower, lower, lower, lower, lower, lower, lower, lower],
                             [upper, upper, upper, upper, lower, lower, lower, lower],
                             [upper, upper, upper, upper, upper, upper, upper, upper],
                             [lower, lower, lower, lower, lower, lower, lower, lower]]
 
 
+        # NEED TO MAKE A VALIDATION THING IN ORDER TO MAKE SURE THAT THE SAME THING HASN'T BEEN SELECTED TWICE IN ONE WORKOUT.
+            def exer(z):
+                ex = z[0]
+                df1 = df[df["Muscle1"].str.contains(ex, case=False, na=False) | df["Muscle2"].str.contains(ex, case=False,
+                                                                                                       na=False) | df[
+                            "Muscle3"].str.contains(ex, case=False, na=False)]
+                mdf = pd.DataFrame(df1)
+                mdf2 = mdf.reset_index()
+                size = mdf2.index.size
+                num = np.random.randint(0, size - 1)
+                wo = mdf2.Exercise_Name[num]
+                return wo
 
-        def exer(z):
-            ex = z[0]
-            df1 = df[df["Muscle1"].str.contains(ex, case=False, na=False) | df["Muscle2"].str.contains(ex, case=False, na=False) | df["Muscle3"].str.contains(ex, case=False, na=False)]
-            mdf = pd.DataFrame(df1)
-            mdf2 = mdf.reset_index()
-            size = mdf2.index.size
-            num = np.random.randint(1, size)
-            wo = mdf2.Exercise_Name[num]
-            return wo
+            def daily(x):
+                for y in x:
+                    for z in y:
+                        this = exer(z)
+                        day.append(this)
+                        val = z.pop(0)
+                        z.append(val)
 
-        def daily(x):
-            for y in x:
-                for z in y:
-                    this = exer(z)
-                    day.append(this)
-                    val = z.pop(0)
-                    z.append(val)
+            def week():
+                daily(result)
+                a = [day[i:i + n] for i in range(0, len(day), n)]
+                day.clear()
+                return a
 
-        def week():
-            daily(result)
-            a = [day[i:i + n] for i in range(0, len(day), n)]
-            day.clear()
-            return a
-
-        def full(length):
-            for x in range(length):
-                c = week()
-                for x in c:
-                    d = ', '.join(x)
-                    print(userid)
-                    cursor.execute('INSERT INTO dbo.Workouts(User_ID,WorkoutInfo,Completed) VALUES (?,?,?)',
+            def full(length):
+                for x in range(length):
+                    c = week()
+                    for x in c:
+                        d = ', '.join(x)
+                        print(userid)
+                        cursor.execute('INSERT INTO dbo.Workouts(User_ID,WorkoutInfo,Completed) VALUES (?,?,?)',
                                    (userid, d, 0))
-                    cnxn.commit()
+                        cnxn.commit()
 
-        full(weeks)
-        sm.current = 'newwo'
+            full(weeks)
+            sm.current = 'newwo'
 
 #Class that shows the workout
 class planWindow(Screen):
